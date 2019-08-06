@@ -1,0 +1,16 @@
+//判断是否微信
+function isWeiXin(){
+                var ua = window.navigator.userAgent.toLowerCase();
+                if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+//android终端或者uc，小米等奇葩浏览器
+var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1|| u.indexOf('MI') > -1|| <br>u.indexOf('XiaoMi') > -1; //android终端或者uc，小米等奇葩浏览器
+    if(!isAndroid) {} 
+    if(isAndroid)  {}
+

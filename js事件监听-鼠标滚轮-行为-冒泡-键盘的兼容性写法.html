@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="btn">123</div>
+</body>
+<script>
+
+var compatibleEvent = {
+//绑定
+addEvent:function(el,type,fn,capture) {
+    if (window.addEventListener) {    
+        if (type === "mousewheel" && document.mozHidden !== undefined) {
+            type = "DOMMouseScroll";
+        }    
+        el.addEventListener(type, fn, !!capture);
+    } else if (window.attachEvent) {
+        el.attachEvent("on" + type, fn);
+    }
+},
+//解绑 
+removeEvent:function(el,type,fn,capture) {
+    if (window.removeEventListener) {    
+        if (type === "mousewheel" && document.mozHidden !== undefined) {
+            type = "DOMMouseScroll";
+        }    
+        el.removeEventListener(type, fn, !!capture);
+    } else if (window.detachEvent) {
+        el.detachEvent("on" + type, fn);
+    }
+},
+//对鼠标滚轮、行为、冒泡以及键盘做的兼容性处理
+eventCompat:function(e) {
+    e || (e = root.event);
+    var type = e.type;
+    if (type == 'DOMMouseScroll' || type == 'mousewheel') {
+        e.delta = (e.wheelDelta) ? -e.wheelDelta / 120 : (e.detail || 0) / 3;
+    }
+    if (e.srcElement && !e.target) {
+        e.target = e.srcElement;    
+    }
+    //阻止默认行为
+    if (!e.preventDefault) {
+        e.preventDefault = function() {
+            e.returnValue = false;
+        };
+    }
+    //阻止冒泡
+    if (!e.stopPropagation && e.cancelBubble !== undefined) {
+        e.stopPropagation = function() {
+            e.cancelBubble = true;
+        };
+    }
+    //键盘的兼容性处理
+    if(e.which == null){
+        e.which = e.charCode != null ? e.charCode : e.keyCode;
+    }
+    /* 
+       ......其他一些兼容性处理 */
+    return e;
+},
+bindAsEventListener:function(context, fun) {
+    var self = this;
+    return function(e) {
+        return fun.call(context, self.eventCompat(e));
+    }
+}
+}
+
+//调用：
+var dom = document.getElementById('btn');
+var object = {
+    clickCtrl:function(){
+        console.log(1)  
+    }
+};
+
+compatibleEvent.addEvent(dom, "click", function(){
+    alert(dom.id);                                       
+});
+
+compatibleEvent.addEvent(dom, "mousedown", 
+    compatibleEvent.bindAsEventListener(object, function(e){object.clickCtrl()
+}));
+</script>
+</html>

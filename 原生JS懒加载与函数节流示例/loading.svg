@@ -1,0 +1,15 @@
+<svg width="574" height="400" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ <g>
+  <title>background</title>
+  <rect fill="#999999" id="canvas_background" height="402" width="576" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <text opacity="0.2" stroke="#000" transform="matrix(2.716353046670804,0,0,4.18565215882586,-293.7648178351003,-499.5394173077361) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_1" y="174.765858" x="157.30247" stroke-width="0" fill="#000000">图片加载中</text>
+ </g>
+</svg>

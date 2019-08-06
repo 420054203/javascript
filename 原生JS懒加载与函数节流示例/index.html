@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    img {
+      display: block;
+      width: 800px;
+      height: 400px;
+    }
+  </style>
+</head>
+
+<body>
+  <ul class="img-group">
+    <li><img src="loading.svg"
+        data-src="https://bpic.588ku.com//back_origin_min_pic/19/04/12/7b907056839423bfb528912c98592e1f.jpg!/fw/750/quality/99/unsharp/true/compress/true">
+    </li>
+    <li><img src="loading.svg"
+        data-src="https://bpic.588ku.com//back_origin_min_pic/19/04/12/7b907056839423bfb528912c98592e1f.jpg!/fw/750/quality/99/unsharp/true/compress/true">
+    </li>
+    <li><img src="loading.svg"
+        data-src="https://bpic.588ku.com//back_origin_min_pic/19/04/12/7b907056839423bfb528912c98592e1f.jpg!/fw/750/quality/99/unsharp/true/compress/true">
+    </li>
+    <li><img src="loading.svg"
+        data-src="https://bpic.588ku.com//back_origin_min_pic/19/04/12/7b907056839423bfb528912c98592e1f.jpg!/fw/750/quality/99/unsharp/true/compress/true">
+    </li>
+    <li><img src="loading.svg"
+        data-src="https://bpic.588ku.com//back_origin_min_pic/19/04/12/7b907056839423bfb528912c98592e1f.jpg!/fw/750/quality/99/unsharp/true/compress/true">
+    </li>
+    <li><img src="loading.svg"
+        data-src="https://bpic.588ku.com//back_origin_min_pic/19/04/12/7b907056839423bfb528912c98592e1f.jpg!/fw/750/quality/99/unsharp/true/compress/true">
+    </li>
+    <li><img src="loading.svg"
+        data-src="https://bpic.588ku.com//back_origin_min_pic/19/04/12/7b907056839423bfb528912c98592e1f.jpg!/fw/750/quality/99/unsharp/true/compress/true">
+    </li>
+  </ul>
+  <script type="text/javascript">
+    let imgArr = document.querySelectorAll('img');
+    let len = imgArr.length;
+    let n = 0; //记录加载图片的位置，避免从第一张开始加载
+    let canrun = true;//开关
+    let seenHeight = document.documentElement.clientHeight;//页面可视高度
+    console.log("seenHeight =" + seenHeight);
+
+    lazyLoad();
+    window.onscroll = function () {
+      if (!canrun) {
+        return;
+      }
+      canrun = false;
+      setTimeout(function () {
+        console.log('1秒执行一次懒加载函数');
+        lazyLoad();
+        canrun = true;
+      }, 1000);
+
+    }
+
+    function lazyLoad() {
+      //页面卷入的距离
+      let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      console.log("scrollTop =" + scrollTop);
+      for (let i = 0; i < len; i++) {
+        console.log(i + '-----' + imgArr[i].offsetTop);
+        //通过每个dom元素距body的top值 与 页面视窗height值+页面卷入的距离和 进行判断,若前者小于后者,则图片显示将要显示的内容,替换原来的src里面的提示图片;若前者大于等于后者,则图片显示提示图片加载中,不显示将要显示的内容
+        if (imgArr[i].offsetTop < seenHeight + scrollTop) {
+          if (imgArr[i].getAttribute('src') == 'loading.svg') {
+            imgArr[i].src = imgArr[i].getAttribute('data-src');
+          }
+          n = i + 1;
+          console.log('第' + n + '张图片已显示');
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
