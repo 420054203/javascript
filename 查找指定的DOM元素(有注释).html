@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>找到span标签最近的类名为a的父级元素</title>
+</head>
+<body>
+    <div>
+        <div>
+            <div class="a">
+                <div>
+                    <div>
+                        <div class="a">
+                            <div>
+                                <p>
+                                        <span>我是span标签</span>
+                                </p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    //先获取查找的基点元素
+var span = document.querySelector('span');
+
+//递归方法查找span标签的每一层父节点
+function getParent(el){
+    //如果某一层找到了最近的类名为a的父级元素,则返回这个元素
+    if(el.parentNode.getAttribute("class")=='a'){
+        return el.parentNode;
+    }else{
+        //如果没找到,则将每次获取到的父节点作为基点 继续查找,直到找到满足条件的元素为止
+       return getParent(el.parentNode)
+    }
+}
+console.log(getParent(span))
+</script>
+</html>
