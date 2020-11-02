@@ -1,0 +1,17 @@
+Father.prototype.name="sunny";
+	function Father(){
+        
+	}
+	function Son(){
+
+	}
+	 function inherit(tar,ori){
+	 	function F(){}
+        F.prototype=ori.prototype;
+	 	tar.prototype=new F();
+	 	tar.prototype.constructor=tar;//构造函数归位
+	 	
+	 	}
+	 inherit(Son,Father);
+	 var son=new Son();
+	 var father=new Father();
